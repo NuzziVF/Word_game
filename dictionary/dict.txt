@@ -2529,6 +2529,7 @@ archives
 archiving
 archivist
 archivists
+acrophobia
 archly
 archness
 archway
@@ -13923,6 +13924,7 @@ diatoms
 diatonic
 diatribe
 diatribes
+dick
 dice
 diced
 dices

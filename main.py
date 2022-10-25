@@ -7,7 +7,7 @@ def tPrintslow(text) -> None:
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
-        time.sleep(0.8)
+        time.sleep(0.08)
 
 
 def tPrintfast(text) -> None:
@@ -21,7 +21,7 @@ def tInputslow(text) -> str:
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
-        time.sleep(0.08)
+        time.sleep(0.04)
     value = input()
     return value
 
@@ -62,20 +62,47 @@ Local Player - Play against another person or group."""
                 return choice
 
 
-def initial_word() -> str:
+def open_dict_file() -> List:
     with open("dictionary/dict.txt", "r") as file:
         computer = file.read().split()
-        computer_choice = random.choice(computer)
-        print(computer_choice)
-        return computer_choice
+        file.close
+        return computer
+
+
+def initial_word() -> str:
+    computer = open_dict_file()
+    computer_choice = random.choice(computer)
+    tPrintslow(computer_choice + "\n")
+    return computer_choice
 
 
 def players_input(CC: str):
-    p1 = input("> ")
+    while True:
+        p1 = tInputfast("> ")
+        l = open_dict_file()
+        if p1 in l and p1[0] == CC[-1]:
+            return p1
+        elif p1 not in l:
+            tPrintfast("Your Word is not in the dictionary. Check spelling." + "\n")
+        elif p1[0] != CC[-1]:
+            tPrintfast("Your word has to start with the last letter." + "\n")
+
+
+def computer_input(CP: str):
+    letter = CP[-1]
+    with open(f"dictionary/{letter}.txt", "r") as file:
+        computer = file.read().split()
+        file.close()
+    c1 = random.choice(computer)
+    tPrintslow(c1 + "\n")
+    return c1
 
 
 def singleplayer_game():
     computer_choice = initial_word()
+    while True:
+        player_choice = players_input(computer_choice)
+        computer_choice = computer_input(player_choice)
 
 
 def localplayer_game():
